@@ -1,18 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    kotlin("kapt")
 }
 
 android {
     namespace = "com.example.swypapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.swypapp"
-        minSdk = 24
-        targetSdk = 36
+        minSdk = 26   //Media3, Toss 등을 위해 26 이상 권장
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -46,6 +47,31 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    // [DI - Hilt]
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    // [Network - Retrofit]
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp.logging)
+
+    // [Image & Audio]
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+
+    // [Firebase]
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.dynamic.links)
+
+    // [Social & Security & Payment]
+    implementation(libs.kakao.sdk.user)
+    implementation(libs.androidx.security.crypto)
+    implementation(libs.toss.payments)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
